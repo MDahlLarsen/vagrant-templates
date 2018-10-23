@@ -1,0 +1,74 @@
+
+
+
+brew cask install virtualbox
+brew cask install vagrant
+brew cask install vagrant-manager
+
+
+vagrant box add ubuntu/trusty64
+
+vagrant init ubuntu/trusty64
+
+
+vagrant up
+
+
+exit
+
+
+
+## http://sourabhbajaj.com/mac-setup/Vagrant/README.html
+
+
+
+
+
+a=${@}
+
+if [  $a < 2 ]; then
+
+	echo "The number of arguments is: $#"
+
+fi
+
+
+exit
+
+echo "The number of arguments is: $#"
+a=${@}
+
+
+exit
+
+
+for ARGUMENT in "$@"
+do
+    KEY=$(echo $ARGUMENT | cut -f1 -d=)
+    VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
+
+    case "$KEY" in
+            CFG)    CFG=${VALUE} ;;
+            CMD)    CMD=${VALUE} ;;     
+            *)
+    esac
+done
+
+#echo "Config = $CFG"
+#echo "Command = $CMD"
+
+
+
+
+if [ -z "${1}" ] && [ -z "${2}" ]; then
+		echo "vcmd need 2 parms. vagrantfile.conf and vagrant-comand (ex. up, ssh, destroy, etc.)"
+		echo "Ex: vcmd derv-bind01.vagrant up"
+		exit 1
+fi
+
+if [ -z "${1}" ] && [ -z "${2}" ]; then
+		echo "vcmd need 2 parms. vagrantfile.conf and vagrant-comand (ex. up, ssh, destroy, etc.)"
+		echo "Ex: vcmd derv-bind01.vagrant up"
+		exit 1
+fi
+
