@@ -1,0 +1,35 @@
+######################################################
+# Mac OS 10.13 Sierra
+#   Note(s):
+#   
+######################################################
+# Parse options
+options = {}
+options[:boxname] = ARGV[1] || 'vMacMacOS10.13'
+
+if options[:boxname].nil?
+  options[:boxname] = ARGV[1] || (0...10).map { ('a'..'z').to_a[rand(26)] }.join
+  puts "You did not set a Boxname,  creating random: #{options[:boxname]}"
+end
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+	config.vm.box = "AndrewDryga/vagrant-box-osx"
+	config.vm.box_check_update = false
+	config.vm.provider "virtualbox" do |v|
+		v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+		v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+		v.customize ["modifyvm", :id, "--memory", "2048"]
+		v.customize ["modifyvm", :id, "--cpus", "2"]
+		
+		#Set VM friendly name
+		v.name = options[:boxname]
+	end
+	#Set the machine ID in .VM-DIR 
+	config.vm.define options[:boxname]  
+	#Set hostname in VM
+	config.vm.hostname = options[:boxname]
+	
+	#config.vm.network :private_network, ip: "192.168.33.5"
+end
