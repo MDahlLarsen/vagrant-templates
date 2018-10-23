@@ -1,11 +1,11 @@
 ######################################################
 # ubuntu/trusty64 
-#   Note(s):
-#   
+#   Note(s): Postfix
+#   Martin Dahl-Larsen <martin@mpsoft.dk>
 ######################################################
 # Parse options
 options = {}
-options[:boxname] = ARGV[1] || 'test.mta01'
+options[:boxname] = ARGV[1] || 'test-mta01'
 
 if options[:boxname].nil?
   options[:boxname] = ARGV[1] || (0...10).map { ('a'..'z').to_a[rand(26)] }.join
@@ -32,7 +32,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.hostname = options[:boxname]
 
 	config.vm.network :private_network, ip: "10.10.10.10"
-#	config.vm.synced_folder "/Users/mdahl/SRC/EC/Puppet/", "/etc/puppet"
+	#config.vm.synced_folder "/Users/mdahl/SRC/MPS/Puppet/", "/etc/puppet"
 	
 	config.vm.provision "install-sw-and-tool",
 	  type: "shell",
